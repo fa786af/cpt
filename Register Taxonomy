@@ -1,0 +1,36 @@
+<?php
+
+/* Register Taxonomy */
+function taxoFunc($taxoName, $postType){
+    $menuName = ucwords($taxoName);
+    $taxoName = strtolower(str_replace( ' ', '_', $taxoName));
+    $labels = array(
+        'name'              => _x( $menuName, 'taxonomy general name' ),
+        'singular_name'     => _x( $menuName, 'taxonomy singular name' ),
+        'search_items'      => __( 'Search' ),
+        'all_items'         => __( 'All' ),
+        'parent_item'       => __( 'Parent' ),
+        'parent_item_colon' => __( 'Parent:' ),
+        'edit_item'         => __( 'Edit' ),
+        'update_item'       => __( 'Update' ),
+        'add_new_item'      => __( 'Add New' ),
+        'new_item_name'     => __( 'New Name' ),
+        'menu_name'         => __( $menuName ),
+    );
+ 
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,  
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => $taxoName, 'with_front' => false ),
+    );
+ 
+    register_taxonomy( $taxoName, $postType, $args );
+     
+}
+
+taxoFunc('Categories', 'services');
+
+?>
